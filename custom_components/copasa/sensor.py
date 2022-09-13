@@ -54,7 +54,7 @@ class CopasaSensor(entity.Entity):
 
     def __init__(self,config):
         """Initialize a new Espn sensor."""
-        self._attr_name = "MatchDay"
+        self._attr_name = "copasa"
         self.live_event = None
         self.invoice_details = None
         self.config = config
