@@ -114,8 +114,7 @@ def get_invoice_details(config):
     invoice_details = json.dumps(invoice_details,indent=4) 
     return  invoice_details
     
-    
-print("fatura_details",get_invoice_details())
+
 
 
 def get_paid_invoices(config):
@@ -127,7 +126,7 @@ def get_paid_invoices(config):
     invoices = json.dumps(invoices,indent=4) 
     return  invoices
 
-print("Paid invoices",get_paid_invoices())
+
 
 def get_open_invoices(config):
     url = "https://copasaproddyn365api.azurewebsites.net/api/Ocorrencia/MyAccount_DuplicateOfAccounts_GetOpenInvoices"
