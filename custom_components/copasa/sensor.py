@@ -76,9 +76,9 @@ class InvoiceSensor(SensorEntity):
         This is the only method that should fetch new data for Home Assistant.
         """
         
-        self.invoice_details = get_invoice_details()
-        self.paid_invoices = get_paid_invoices()
-        self.open_invoices = get_open_invoices()
+        self.invoice_details = get_invoice_details(self.config )
+        self.paid_invoices = get_paid_invoices(self.config )
+        self.open_invoices = get_open_invoices(self.config )
         self.matches = ""
         
             
