@@ -46,10 +46,10 @@ def setup_platform(
 ):
     """Set up the Copasa sensors."""
   
-    add_entities([CopasaSensor(config)])
+    add_entities([InvoiceSensor(config)])
 
 
-class CopasaSensor(SensorEntity):
+class InvoiceSensor(SensorEntity):
     """Representation of a Copasa sensor."""
 
     def __init__(self,config):
