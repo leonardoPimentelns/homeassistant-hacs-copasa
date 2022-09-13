@@ -26,7 +26,6 @@ REGISTRATION ="matricula"
 IDENTIFIER = "identificador"
 CPF_CNPJ= "cpf_cnpj"
 
-TOKEN ="your token"
 PLATFORM_SCHEMA = config_validation.PLATFORM_SCHEMA.extend(
     {
         voluptuous.Required(REGISTRATION): config_validation.string,
