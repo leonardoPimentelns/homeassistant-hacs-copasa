@@ -1,0 +1,10 @@
+{
+  "domain": "copasa",
+  "name": "Copasa",
+  "version": "1.0.0", 
+  "documentation": "",
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": []
+}
