@@ -57,6 +57,8 @@ class InvoiceSensor(SensorEntity):
         self._attr_name = "copasa"
         self.live_event = None
         self.invoice_details = None
+        self.paid_invoices = None
+        self.open_invoices = None
         self.config = config
 
        
@@ -75,6 +77,8 @@ class InvoiceSensor(SensorEntity):
         """
         
         self.invoice_details = get_invoice_details()
+        self.paid_invoices = get_paid_invoices()
+        self.open_invoices = get_open_invoices()
         self.matches = ""
         
             
@@ -85,6 +89,8 @@ class InvoiceSensor(SensorEntity):
         """Return device specific state attributes."""
         self._attributes = {
             "invoice details": self.invoice_details,
+            "paid invoices": self.paid_invoices,
+            "open invoices": self.open_invoices,
 
         }
         return  self._attributes
