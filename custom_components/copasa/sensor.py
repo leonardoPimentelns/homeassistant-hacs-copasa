@@ -9,11 +9,11 @@ import logging
 from multiprocessing import Event
 import voluptuous
 import json
-from requests.structures import CaseInsensitiveDict
+
 import requests
 import pytz
 from homeassistant import const
-from homeassistant.helpers import entity
+from homeassistant.components.sensor import PLATFORM_SCHEMA, SensorEntity
 from homeassistant import util
 from homeassistant.helpers import config_validation
 import pandas as pd
@@ -46,14 +46,14 @@ def setup_platform(
 ):
     """Set up the Copasa sensors."""
   
-    add_entities([CopasaSensor(config)],True)
+    add_entities([CopasaSensor(config)])
 
 
-class CopasaSensor(entity.Entity):
+class CopasaSensor(SensorEntity):
     """Representation of a Copasa sensor."""
 
     def __init__(self,config):
-        """Initialize a new Espn sensor."""
+        """Initialize a new copasa sensor."""
         self._attr_name = "copasa"
         self.live_event = None
         self.invoice_details = None
