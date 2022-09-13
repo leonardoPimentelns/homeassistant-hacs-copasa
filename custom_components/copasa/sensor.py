@@ -58,6 +58,8 @@ class CopasaSensor(entity.Entity):
         self._attr_name = "MatchDay"
         self.live_event = None
         self.invoice_details = None
+        self.config = config
+
        
 
 
@@ -89,10 +91,10 @@ class CopasaSensor(entity.Entity):
         return  self._attributes
 
   
-def get_costumer_id():
+def get_costumer_id(config):
     
     url = "https://copasaportalprd.azurewebsites.net/Copasa.Portal/Services/MyAccount_ListIdentifiers_GetIdentifiers" 
-    token ="CpfCnpj="+CPF_CNPJ+"&url=https://copasaproddyn365api.azurewebsites.net"
+    token ="CpfCnpj="+config[CPF_CNPJ]+"&url=https://copasaproddyn365api.azurewebsites.net"
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     resp = requests.post(url,data=token,headers=headers)
     costumer = json.loads(resp.content)
@@ -102,11 +104,11 @@ def get_costumer_id():
 
 
 
-def get_invoice_details():
+def get_invoice_details(config):
     reference = pd.to_datetime('today')-pd.DateOffset(months=1)
     reference = reference.strftime('%Y%m')
     url = "https://copasaproddyn365api.azurewebsites.net/api/Ocorrencia/MyAccount_DuplicateOfAccounts_GetInvoiceDetails" 
-    token= {"Registration":REGISTRATION,"Reference":reference,"Company":"Copasa"}
+    token= {"Registration":config[REGISTRATION],"Reference":reference,"Company":"Copasa"}
     
     resp = requests.post(url, json = token)
     invoice_details = json.loads(resp.content)
@@ -117,9 +119,9 @@ def get_invoice_details():
 print("fatura_details",get_invoice_details())
 
 
-def get_paid_invoices():
+def get_paid_invoices(config):
     url = "https://copasaproddyn365api.azurewebsites.net/api/Ocorrencia/MyAccount_DuplicateOfAccounts_GetPaidInvoices"
-    token = {"Identifier":IDENTIFIER,"Registration":REGISTRATION,"idCpfCnpj":get_costumer_id(),"Company":"Copasa"}
+    token = {"Identifier":config[IDENTIFIER],"Registration":config[REGISTRATION],"idCpfCnpj":get_costumer_id(),"Company":"Copasa"}
     
     resp = requests.post(url, json = token)
     invoices = json.loads(resp.content)
@@ -128,9 +130,9 @@ def get_paid_invoices():
 
 print("Paid invoices",get_paid_invoices())
 
-def get_open_invoices():
+def get_open_invoices(config):
     url = "https://copasaproddyn365api.azurewebsites.net/api/Ocorrencia/MyAccount_DuplicateOfAccounts_GetOpenInvoices"
-    token = {"Identifier":IDENTIFIER,"Registration":REGISTRATION,"idCpfCnpj":get_costumer_id(),"Company":"Copasa"}
+    token = {"Identifier":config[IDENTIFIER],"Registration":config[REGISTRATION],"idCpfCnpj":get_costumer_id(),"Company":"Copasa"}
     
     resp = requests.post(url, json = token)
     invoices = json.loads(resp.content)
