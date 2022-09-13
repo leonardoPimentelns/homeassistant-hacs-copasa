@@ -60,6 +60,7 @@ class InvoiceSensor(SensorEntity):
         self.paid_invoices = None
         self.open_invoices = None
         self.config = config
+        self.costumer_id = None
 
        
 
@@ -75,7 +76,7 @@ class InvoiceSensor(SensorEntity):
         """Fetch new state data for the sensor.
         This is the only method that should fetch new data for Home Assistant.
         """
-        
+        self.costumer_id = get_costumer_id(self.config)
         self.invoice_details = get_invoice_details(self.config)
         self.paid_invoices = get_paid_invoices(self.config)
         self.open_invoices = get_open_invoices(self.config)
@@ -125,7 +126,7 @@ def get_invoice_details(config):
 
 def get_paid_invoices(config):
     url = "https://copasaproddyn365api.azurewebsites.net/api/Ocorrencia/MyAccount_DuplicateOfAccounts_GetPaidInvoices"
-    token = {"Identifier":config[IDENTIFIER],"Registration":config[REGISTRATION],"idCpfCnpj":get_costumer_id(),"Company":"Copasa"}
+    token = {"Identifier":config[IDENTIFIER],"Registration":config[REGISTRATION],"idCpfCnpj":get_costumer_id(config),"Company":"Copasa"}
     
     resp = requests.post(url, json = token)
     invoices = json.loads(resp.content)
@@ -136,7 +137,7 @@ def get_paid_invoices(config):
 
 def get_open_invoices(config):
     url = "https://copasaproddyn365api.azurewebsites.net/api/Ocorrencia/MyAccount_DuplicateOfAccounts_GetOpenInvoices"
-    token = {"Identifier":config[IDENTIFIER],"Registration":config[REGISTRATION],"idCpfCnpj":get_costumer_id(),"Company":"Copasa"}
+    token = {"Identifier":config[IDENTIFIER],"Registration":config[REGISTRATION],"idCpfCnpj":get_costumer_id(config),"Company":"Copasa"}
     
     resp = requests.post(url, json = token)
     invoices = json.loads(resp.content)
