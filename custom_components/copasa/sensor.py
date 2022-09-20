@@ -89,9 +89,9 @@ class InvoiceSensor(SensorEntity):
     def extra_state_attributes(self):
         """Return device specific state attributes."""
         self._attributes = {
-            "invoice details": self.invoice_details,
-            "paid invoices": self.paid_invoices,
-            "open invoices": self.open_invoices,
+            "invoice_details": self.invoice_details,
+            "paid_invoices": self.paid_invoices,
+            "open_invoices": self.open_invoices,
 
         }
         return  self._attributes
@@ -118,7 +118,7 @@ def get_invoice_details(config):
     
     resp = requests.post(url, json = token)
     invoice_details = json.loads(resp.content)
-    invoice_details = json.dumps(invoice_details,indent=4) 
+   
     return  invoice_details
     
 
@@ -130,7 +130,6 @@ def get_paid_invoices(config):
     
     resp = requests.post(url, json = token)
     invoices = json.loads(resp.content)
-    invoices = json.dumps(invoices,indent=4) 
     return  invoices
 
 
@@ -141,5 +140,4 @@ def get_open_invoices(config):
     
     resp = requests.post(url, json = token)
     invoices = json.loads(resp.content)
-    invoices = json.dumps(invoices,indent=4) 
     return  invoices
