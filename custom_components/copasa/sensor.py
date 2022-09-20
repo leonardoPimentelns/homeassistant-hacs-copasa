@@ -11,7 +11,7 @@ import voluptuous
 import json
 
 
-from barcode.writer import ImageWriter
+from barcode.writer import SVGWriter
 import barcode
 EAN = barcode.get_barcode_class('itf')
 barcode.PROVIDED_BARCODES
@@ -145,6 +145,6 @@ def get_open_invoices(config):
     resp = requests.post(url, json = token)
     invoices = json.loads(resp.content)
     barcode = invoices['faturas'][0]['numeroCodigoBarras']
-    with open("custom_components/copasa/barcode.png", "wb") as f:
-        EAN(str(barcode), writer=ImageWriter()).write(f)
+    with open("/local/barcode.svg", "wb") as f:
+        EAN(str(barcode), writer=SVGWriter()).write(f)
     return  invoices
