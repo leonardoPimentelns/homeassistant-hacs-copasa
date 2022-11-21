@@ -145,6 +145,13 @@ def get_open_invoices(config):
     resp = requests.post(url, json = token)
     invoices = json.loads(resp.content)
     barcode = invoices['faturas'][0]['numeroCodigoBarras']
-    with open("/local/barcode.svg", "wb") as f:
-        EAN(str(barcode), writer=SVGWriter()).write(f)
+    numeroFatura = invoices['faturas'][0]['numeroFatura']
+    valorFatura = invoices['faturas'][0]['valorFatura']
+    referencia = invoices['faturas'][0]['referencia']
+    dataVencimento = invoices['faturas'][0]['dataVencimento']
+    dataVencimento = datetime.strptime(dataVencimento, '%Y%m%d').strftime("%d-%m-%Y")
+    referencia = datetime.strptime(referencia, '%Y%m').strftime("%m-%Y")
+    qrcode ="https://wwwapp.copasa.com.br/servicos/WebServiceAPI/Prd/CopasaAtende/api/fatura/exibe/QRCode/"+config[REGISTRATION]+"/"+numeroFatura+"/"+referencia+"/"+dataVencimento+"/"+valorFatura+""
+    invoices = {"valorFatura":valorFatura,"Faturas":{"numeroFatura":numeroFatura,'referencia':referencia,"dataVencimento":dataVencimento,"qrcode":qrcode,"barcode":barcode} }
+    
     return  invoices
