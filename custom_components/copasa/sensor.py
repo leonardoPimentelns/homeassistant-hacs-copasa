@@ -146,7 +146,7 @@ def get_open_invoices(config):
     invoices = json.loads(resp.content)
     barcode = invoices['faturas'][0]['numeroCodigoBarras']
     numeroFatura = invoices['faturas'][0]['numeroFatura']
-    valorUltimaFatura = get_paid_invoices()
+    valorUltimaFatura = get_paid_invoices(config)
     valorUltimaFatura =valorUltimaFatura['contas'][0]['valorTotalFatura'].replace('.','').replace(',','.')
     valorFatura = invoices['faturas'][0]['valorFatura'].replace('.','').replace(',','.')
     diferenca = (float(valorFatura) - float(valorUltimaFatura)) /(float(valorUltimaFatura))*100 
