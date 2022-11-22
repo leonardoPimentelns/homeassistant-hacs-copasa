@@ -154,7 +154,7 @@ def get_open_invoices(config):
     dataVencimento = invoices['faturas'][0]['dataVencimento']
     dataVencimento = datetime.strptime(dataVencimento, '%Y%m%d').strftime("%d-%m-%Y")
     referencia = datetime.strptime(referencia, '%Y%m').strftime("%m-%Y")
-    qrcode ="https://wwwapp.copasa.com.br/servicos/WebServiceAPI/Prd/CopasaAtende/api/fatura/exibe/QRCode/"+REGISTRATION+"/"+numeroFatura+"/"+referencia+"/"+dataVencimento+"/"+valorFatura+""
+    qrcode ="https://wwwapp.copasa.com.br/servicos/WebServiceAPI/Prd/CopasaAtende/api/fatura/exibe/QRCode/"+config[REGISTRATION]+"/"+numeroFatura+"/"+referencia+"/"+dataVencimento+"/"+valorFatura+""
     invoices = {"valorFatura":valorFatura,"valorUltimaFatura":valorUltimaFatura,"diferenca":round(diferenca,2),"faturas":{"numeroFatura":numeroFatura,'referencia':referencia,"dataVencimento":dataVencimento,"qrcode":qrcode,"barcode":barcode} }
     return  invoices
     
